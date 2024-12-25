@@ -13,7 +13,7 @@
 # limitations under the License.
 
 load("@rules_proto//proto:defs.bzl", "proto_library")
-load("//bazel:psi.bzl", "psi_cc_library")
+load("//bazel:psi.bzl", "psi_cc_library", "psi_cc_test")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -75,5 +75,27 @@ psi_cc_library(
     deps = [
         ":sender_db",
         "@apsi",
+    ],
+)
+
+psi_cc_library(
+  name = "csv_converter",
+  srcs = ["csv_converter.cc"],
+  hdrs = ["csv_converter.h"],
+  deps = [
+      ":common",
+      "@org_apache_arrow//:arrow",
+      "@yacl//yacl/base:exception",
+  ],
+)
+
+psi_cc_test(
+    name = "csv_converter_test",
+    srcs = ["csv_converter_test.cc"],
+    deps = [
+        ":csv_converter",
+        "//psi/utils:arrow_csv_batch_provider",
+        "@com_google_googletest//:gtest",
+        "@boost.uuid//:boost.uuid",
     ],
 )
