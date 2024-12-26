@@ -132,4 +132,4 @@ TEST(DuplicateKeyTest, Works) {
     }
   }
 }
-}  // namespace psi::apsi_wrapper
+}  // namespace psi::apsi_wrapper::api
