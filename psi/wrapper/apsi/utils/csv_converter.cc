@@ -91,7 +91,8 @@ ApsiCsvConverter::ApsiCsvConverter(const std::string& input_file_path,
   YACL_ENFORCE(std::getline(csv_file, first_line), "Empty file: {}.",
                input_file_path_);
   YACL_ENFORCE(std::getline(csv_file, second_line),
-               "File {} only has one line.", input_file_path_);
+               "File {} only has one line with column names.",
+               input_file_path_);
 
   std::vector<std::string> column_names;
   column_names.emplace_back(key_);
@@ -131,10 +132,12 @@ void ApsiCsvConverter::MergeColumnAndRow(
 
     // Merge multiple labels within a row using "_", and for the same key,
     // concatenate the values from multiple rows using "||".
+    // NOTE: A better separator should have been chosen.
     for (int i = 0; i < batch_->num_rows(); ++i) {
       std::string current_key = (std::string)arrays_[0]->Value(i);
 
       std::vector<absl::string_view> labels;
+      labels.reserve(arrays_.size() - 1);
       for (size_t j = 1; j < arrays_.size(); ++j) {
         labels.emplace_back(arrays_[j]->Value(i));
       }

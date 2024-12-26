@@ -105,7 +105,7 @@ TEST(ApsiCsvConverterTest, Works) {
     EXPECT_EQ(result, target_data);
   }
 
-  // Check if the column merging is valid and if duplicate labels are filtered
+  // Check if the column merging is valid and if duplicate values are filtered
   // out.
   {
     ApsiCsvConverter converter(input_path, "id", {"label1", "label2"});
