@@ -122,5 +122,14 @@ TEST(DuplicateKeyTest, Works) {
     EXPECT_EQ(cnt, target_data.size() - 1);
     EXPECT_EQ(result, target_data);
   }
+
+  {
+    std::error_code ec;
+    std::filesystem::remove_all(tmp_folder, ec);
+    if (ec.value() != 0) {
+      SPDLOG_WARN("can not remove temp file folder: {}, msg: {}",
+                  tmp_folder.string(), ec.message());
+    }
+  }
 }
 }  // namespace psi::apsi_wrapper
