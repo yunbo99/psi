@@ -26,7 +26,7 @@
 #include "psi/wrapper/apsi/api/sender.h"
 #include "psi/wrapper/apsi/utils/csv_converter.h"
 
-namespace psi::apsi_wrapper {
+namespace psi::apsi_wrapper::api {
 
 std::unordered_set<std::string> ReadCsvRow(const std::string& file_path) {
   std::unordered_set<std::string> lines;
