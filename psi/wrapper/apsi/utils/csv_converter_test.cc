@@ -105,8 +105,7 @@ TEST(ApsiCsvConverterTest, Works) {
     EXPECT_EQ(result, target_data);
   }
 
-  // Check if the column merging is valid and if duplicate values are filtered
-  // out.
+  // Check if the column merging is valid.
   {
     ApsiCsvConverter converter(input_path, "id", {"label1", "label2"});
     converter.MergeColumnAndRow(key_value_file_path);
@@ -117,12 +116,13 @@ TEST(ApsiCsvConverterTest, Works) {
     EXPECT_EQ(read_values.size(), 3);
     for (size_t i = 0; i < read_keys.size(); ++i) {
       if (read_keys[i] == "1") {
-        // This label should be "b_y1", not "b_y1||b_y1".
-        EXPECT_EQ(read_values[i], "b_y1");
+        // Considering the actual requirements, duplicate values will not be
+        // filtered.
+        EXPECT_EQ(read_values[i], "b;y1||b;y1");
       } else if (read_keys[i] == "3") {
-        EXPECT_EQ(read_values[i], "c_y3");
+        EXPECT_EQ(read_values[i], "c;y3");
       } else {
-        EXPECT_EQ(read_values[i], "b_y4");
+        EXPECT_EQ(read_values[i], "b;y4");
       }
     }
 
@@ -134,7 +134,7 @@ TEST(ApsiCsvConverterTest, Works) {
                                                    "3,c,y3", "4,b,y4"};
     std::unordered_set<std::string> result = ReadCsvRow(result_file_path);
 
-    EXPECT_EQ(cnt, 3);
+    EXPECT_EQ(cnt, 4);
     EXPECT_EQ(result, target_data);
   }
 
@@ -150,11 +150,11 @@ TEST(ApsiCsvConverterTest, Works) {
     EXPECT_EQ(read_values.size(), 3);
     for (size_t i = 0; i < read_keys.size(); ++i) {
       if (read_keys[i] == "1") {
-        EXPECT_EQ(read_values[i], "b_y1_0.12||b_y1_-0.13");
+        EXPECT_EQ(read_values[i], "b;y1;0.12||b;y1;-0.13");
       } else if (read_keys[i] == "3") {
-        EXPECT_EQ(read_values[i], "c_y3_0.9");
+        EXPECT_EQ(read_values[i], "c;y3;0.9");
       } else {
-        EXPECT_EQ(read_values[i], "b_y4_-12");
+        EXPECT_EQ(read_values[i], "b;y4;-12");
       }
     }
 
@@ -182,7 +182,7 @@ TEST(ApsiCsvConverterTest, Works) {
 
     for (size_t i = 0; i < read_keys.size(); ++i) {
       if (read_keys[i] == "1") {
-        EXPECT_EQ(read_values[i], "1");
+        EXPECT_EQ(read_values[i], "2");
       } else if (read_keys[i] == "3") {
         EXPECT_EQ(read_values[i], "1");
       } else {

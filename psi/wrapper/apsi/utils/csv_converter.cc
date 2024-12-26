@@ -130,9 +130,8 @@ void ApsiCsvConverter::MergeColumnAndRow(
           std::dynamic_pointer_cast<arrow::StringArray>(batch_->column(i)));
     }
 
-    // Merge multiple labels within a row using "_", and for the same key,
+    // Merge multiple labels within a row using ";", and for the same key,
     // concatenate the values from multiple rows using "||".
-    // NOTE: A better separator should have been chosen.
     for (int i = 0; i < batch_->num_rows(); ++i) {
       std::string current_key = (std::string)arrays_[0]->Value(i);
 
@@ -142,12 +141,9 @@ void ApsiCsvConverter::MergeColumnAndRow(
         labels.emplace_back(arrays_[j]->Value(i));
       }
 
-      std::string current_value = absl::StrJoin(labels, "_");
+      std::string current_value = absl::StrJoin(labels, ";");
 
-      // For the same key, duplicate labels should not be appended.
-      if (key_value_map.find(current_key) != key_value_map.end() &&
-          key_value_map[current_key].first.find(current_value) ==
-              std::string::npos) {
+      if (key_value_map.find(current_key) != key_value_map.end()) {
         key_value_map[current_key].first += "||" + current_value;
         key_value_map[current_key].second++;
       } else {
@@ -252,10 +248,10 @@ int ApsiCsvConverter::ExtractResult(
       std::vector<std::string> row_values = absl::StrSplit(current_value, "||");
       total_row_cnt += row_values.size();
 
-      // Second, split the row_value by column based on the separator "_"
+      // Second, split the row_value by column based on the separator ";"
       for (auto& row_value : row_values) {
         std::vector<std::string> current_labels =
-            absl::StrSplit(row_value, "_");
+            absl::StrSplit(row_value, ";");
 
         YACL_ENFORCE(
             label_names.size() == current_labels.size(),
