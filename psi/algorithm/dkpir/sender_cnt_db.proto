@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package psi.dkpir;
+
+message SenderCntDBProto {
+    bytes params = 1;
+    bytes oprf_key = 2;
+    uint32 label_byte_count = 3;
+    uint64 item_count = 4;
+    uint32 bin_bundle_count = 5;
+    bool compressed = 6;
+    bool stripped = 7;
+}

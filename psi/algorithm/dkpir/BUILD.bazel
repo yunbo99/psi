@@ -1,0 +1,113 @@
+# Copyright 2024 Zhongyun Lin, Meituan
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("//bazel:psi.bzl", "psi_cc_binary", "psi_cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+psi_cc_library(
+  name = "sender_cnt_db",
+  srcs = ["sender_cnt_db.cc"],
+  hdrs = ["sender_cnt_db.h"],
+  deps = [
+    "@apsi",
+    "@yacl//yacl/base:exception",
+    ":sender_cnt_db_cc_proto",
+  ],
+)
+
+psi_cc_library(
+  name = "entry",
+  srcs = ["entry.cc"],
+  hdrs = ["entry.h"],
+  deps = [
+    ":dk_pir",
+    ":sender_dispatcher",
+    ":common",
+    "//psi/utils:resource_manager",
+    "//psi/wrapper/apsi/utils:sender_db",
+    "//psi/wrapper/apsi/utils:csv_converter",
+  ]
+)
+
+psi_cc_binary(
+  name = "sender_demo",
+  srcs = ["sender_demo.cc"],
+  deps = [
+    ":entry",
+  ]
+)
+
+psi_cc_binary(
+  name = "receiver_demo",
+  srcs = ["receiver_demo.cc"],
+  deps = [
+    ":entry",
+  ]
+
+)
+
+psi_cc_library(
+  name = "dk_pir",
+  srcs = ["dk_pir.cc"],
+  hdrs = ["dk_pir.h"],
+  deps = [
+    ":query",
+    "//psi/wrapper/apsi:sender",
+    "//psi/wrapper/apsi:receiver",
+    "//psi/wrapper/apsi:yacl_channel",
+  ]
+)
+
+psi_cc_library(
+  name = "common",
+  srcs = ["common.cc"],
+  hdrs = ["common.h"],
+  deps = [
+    ":sender_cnt_db",
+    "//psi/wrapper/apsi/utils:common",
+    "//psi/wrapper/apsi/utils:sender_db",
+  ]
+)
+
+psi_cc_library(
+  name = "sender_dispatcher",
+  srcs = ["sender_dispatcher.cc"],
+  hdrs = ["sender_dispatcher.h"],
+  deps = [
+    "@apsi",
+    "//psi/wrapper/apsi:yacl_channel",
+    ":dk_pir",
+  ]
+)
+
+psi_cc_library(
+  name = "query",
+  hdrs = ["query.h"],
+  deps = [
+    "@apsi",
+    ":sender_cnt_db"
+  ]
+)
+
+proto_library(
+    name = "sender_cnt_db_proto",
+    srcs = ["sender_cnt_db.proto"],
+)
+
+cc_proto_library(
+    name = "sender_cnt_db_cc_proto",
+    deps = [":sender_cnt_db_proto"],
+)
