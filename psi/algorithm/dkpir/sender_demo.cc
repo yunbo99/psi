@@ -18,18 +18,18 @@ int main() {
   std::string count_info_file = root_dir + "tmp/count_info.db";
   std::string count_sdb_out_file = root_dir + "tmp/count_sdb_out.db";
 
-  std::shared_ptr<yacl::link::Context> lctx = nullptr;
-  std::string party = "sender";
+  // std::shared_ptr<yacl::link::Context> lctx = nullptr;
+  // std::string party = "sender";
 
-  yacl::link::ContextDesc link_desc;
-  link_desc.parties.push_back(
-      yacl::link::ContextDesc::Party("sender", "127.0.0.1:5300"));
-  link_desc.parties.push_back(
-      yacl::link::ContextDesc::Party("receiver", "127.0.0.1:5400"));
+  // yacl::link::ContextDesc link_desc;
+  // link_desc.parties.push_back(
+  //     yacl::link::ContextDesc::Party("sender", "127.0.0.1:5300"));
+  // link_desc.parties.push_back(
+  //     yacl::link::ContextDesc::Party("receiver", "127.0.0.1:5400"));
 
-  auto link_resource =
-      psi::ResourceManager::GetInstance().AddLinkResource(party, link_desc);
-  lctx = link_resource->GetLinkContext();
+  // auto link_resource =
+  //     psi::ResourceManager::GetInstance().AddLinkResource(party, link_desc);
+  // lctx = link_resource->GetLinkContext();
 
   // psi::apsi_wrapper::ApsiCsvConverter sender_db_converter(
   //     sender_data_file, "id", {"label1", "label2", "label3"});
@@ -46,10 +46,10 @@ int main() {
   options.count_info_file = count_info_file;
   options.count_sdb_out_file = count_sdb_out_file;
 
-  // psi::dkpir::SenderOffline(options);
-  psi::dkpir::SenderOnline(options, lctx);
+  psi::dkpir::SenderOffline(options);
+  // psi::dkpir::SenderOnline(options, lctx);
 
-  psi::ResourceManager::GetInstance().RemoveAllResource();
+  // psi::ResourceManager::GetInstance().RemoveAllResource();
 
   return 0;
 }

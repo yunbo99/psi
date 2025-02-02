@@ -1,4 +1,4 @@
-// Copyright 2024 Zhongyun Lin, Meituan
+// Copyright 2024 Zhongyun Lin
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -226,7 +226,7 @@ class SenderCntDB {
   size_t label_byte_count_;
 
   /**
-  The number of items currently in the SenderDB.
+  The number of items currently in the SenderCntDB.
   */
   size_t item_count_;
 
@@ -236,7 +236,7 @@ class SenderCntDB {
   bool compressed_;
 
   /**
-  Indicates whether the SenderDB has been stripped of all information not needed
+  Indicates whether the SenderCntDB has been stripped of all information not needed
   for serving a query.
   */
   bool stripped_;
@@ -249,7 +249,7 @@ class SenderCntDB {
   std::vector<std::vector<BinBundle>> bin_bundles_;
 
   /**
-  Holds the OPRF key for this SenderDB.
+  Holds the OPRF key for this SenderCntDB.
   */
   OPRFKey oprf_key_;
 };
