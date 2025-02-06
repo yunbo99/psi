@@ -17,11 +17,9 @@
 #include <string>
 #include <unordered_set>
 
-#include "boost/uuid/uuid.hpp"
-#include "boost/uuid/uuid_generators.hpp"
-#include "boost/uuid/uuid_io.hpp"
 #include "gtest/gtest.h"
 
+#include "psi/utils/random_str.h"
 #include "psi/wrapper/apsi/api/receiver.h"
 #include "psi/wrapper/apsi/api/sender.h"
 #include "psi/utils/csv_converter.h"
@@ -50,8 +48,7 @@ TEST(DuplicateKeyTest, Works) {
   std::string receiver_target_result_file =
       "examples/pir/apsi/data/duplicate_key_target_result.csv";
 
-  boost::uuids::random_generator uuid_generator;
-  auto uuid_str = boost::uuids::to_string(uuid_generator());
+  auto uuid_str = GetRandomString();
 
   std::filesystem::path tmp_folder{std::filesystem::temp_directory_path() /
                                    uuid_str};

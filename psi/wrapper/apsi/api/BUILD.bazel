@@ -129,6 +129,6 @@ psi_cc_test(
     ":receiver",
     ":sender",
     "//psi/utils:csv_converter",
-    "@boost.uuid//:boost.uuid",
+    "//psi/utils:random_str",
   ],
 )

@@ -479,6 +479,6 @@ psi_cc_test(
         ":csv_converter",
         ":arrow_csv_batch_provider",
         "@com_google_googletest//:gtest",
-        "@boost.uuid//:boost.uuid",
+        ":random_str",
     ],
 )

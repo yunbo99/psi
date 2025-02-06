@@ -20,12 +20,10 @@
 #include <string>
 #include <unordered_set>
 
-#include "boost/uuid/uuid.hpp"
-#include "boost/uuid/uuid_generators.hpp"
-#include "boost/uuid/uuid_io.hpp"
 #include "gtest/gtest.h"
 #include "spdlog/spdlog.h"
 
+#include "psi/utils/random_str.h"
 #include "psi/utils/arrow_csv_batch_provider.h"
 
 namespace psi {
@@ -50,8 +48,7 @@ std::unordered_set<std::string> ReadCsvRow(const std::string& file_path) {
 }
 
 TEST(ApsiCsvConverterTest, Works) {
-  boost::uuids::random_generator uuid_generator;
-  auto uuid_str = boost::uuids::to_string(uuid_generator());
+  auto uuid_str = GetRandomString();
 
   std::filesystem::path tmp_folder{std::filesystem::temp_directory_path() /
                                    uuid_str};
