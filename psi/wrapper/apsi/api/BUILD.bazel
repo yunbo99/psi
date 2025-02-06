@@ -131,7 +131,7 @@ psi_cc_test(
   deps = [
     ":receiver",
     ":sender",
-    "//psi/wrapper/apsi/utils:csv_converter",
+    "//psi/utils:csv_converter",
     "@boost.uuid//:boost.uuid",
   ],
 )

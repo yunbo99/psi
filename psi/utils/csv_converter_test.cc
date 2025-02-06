@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "psi/wrapper/apsi/utils/csv_converter.h"
+#include "psi/utils/csv_converter.h"
 
 #include <filesystem>
 #include <fstream>
@@ -28,7 +28,7 @@
 
 #include "psi/utils/arrow_csv_batch_provider.h"
 
-namespace psi::apsi_wrapper {
+namespace psi {
 
 namespace {
 
@@ -238,4 +238,4 @@ TEST(ApsiCsvConverterTest, Works) {
 
 }  // namespace
 
-}  // namespace psi::apsi_wrapper
+}  // namespace psi

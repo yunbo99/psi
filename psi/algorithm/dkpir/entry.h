@@ -14,7 +14,7 @@
 
 #pragma once
 #include "psi/utils/resource_manager.h"
-#include "psi/wrapper/apsi/utils/csv_converter.h"
+#include "psi/utils/csv_converter.h"
 #include "psi/wrapper/apsi/utils/sender_db.h"
 
 namespace psi::dkpir {

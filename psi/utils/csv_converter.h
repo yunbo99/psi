@@ -20,7 +20,7 @@
 #include "arrow/api.h"
 #include "arrow/csv/api.h"
 
-namespace psi::apsi_wrapper {
+namespace psi {
 
 // This class provides functionalities to convert CSV files which is used to
 // support duplicate-key PIR queries
@@ -70,4 +70,4 @@ class ApsiCsvConverter {
   std::vector<std::shared_ptr<arrow::StringArray>> arrays_;
 
 };  // class ApsiCsvConverter
-}  // namespace psi::apsi_wrapper
+}  // namespace psi

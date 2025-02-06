@@ -24,7 +24,7 @@
 
 #include "psi/wrapper/apsi/api/receiver.h"
 #include "psi/wrapper/apsi/api/sender.h"
-#include "psi/wrapper/apsi/utils/csv_converter.h"
+#include "psi/utils/csv_converter.h"
 
 namespace psi::apsi_wrapper::api {
 
@@ -67,12 +67,12 @@ TEST(DuplicateKeyTest, Works) {
 
   {
     // Sender convert db file
-    psi::apsi_wrapper::ApsiCsvConverter sender_db_converter(
+    psi::ApsiCsvConverter sender_db_converter(
         sender_db_file, "id", {"label1", "label2", "label3"});
     sender_db_converter.MergeColumnAndRow(sender_key_value_file);
 
     // Receiver convert query file
-    psi::apsi_wrapper::ApsiCsvConverter receiver_query_converter(
+    psi::ApsiCsvConverter receiver_query_converter(
         receiver_query_file, "id");
     receiver_query_converter.ExtractQuery(receiver_tmp_query_file);
 
@@ -109,7 +109,7 @@ TEST(DuplicateKeyTest, Works) {
                                        receiver_apsi_output_file);
 
     // Receiver convert result file
-    psi::apsi_wrapper::ApsiCsvConverter recevier_result_converter(
+    psi::ApsiCsvConverter recevier_result_converter(
         receiver_apsi_output_file, "key", {"value"});
     int cnt = recevier_result_converter.ExtractResult(
         receiver_result_file, "id", {"label1", "label2", "label3"});

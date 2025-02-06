@@ -141,7 +141,7 @@ int ReceiverOnline(const DkPirReceiverOptions &options,
       {}, *channel, std::numeric_limits<uint32_t>::max());
 
   // Receiver convert result file
-  psi::apsi_wrapper::ApsiCsvConverter recevier_result_converter(
+  psi::ApsiCsvConverter recevier_result_converter(
       options.apsi_output_file, "key", {"value"});
 
   uint64_t cnt =

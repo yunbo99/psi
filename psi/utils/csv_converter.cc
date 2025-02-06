@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "psi/wrapper/apsi/utils/csv_converter.h"
+#include "psi/utils/csv_converter.h"
 
 #include <fstream>
 #include <string>
@@ -29,7 +29,7 @@
 
 #include "psi/wrapper/apsi/utils/common.h"
 
-namespace psi::apsi_wrapper {
+namespace psi {
 
 void WriteCsvFile(
     const std::string& file_path,
@@ -83,7 +83,7 @@ ApsiCsvConverter::ApsiCsvConverter(const std::string& input_file_path,
                                    const std::string& key,
                                    const std::vector<std::string>& labels)
     : input_file_path_(input_file_path), key_(key), labels_(labels) {
-  throw_if_file_invalid(input_file_path_);
+  psi::apsi_wrapper::throw_if_file_invalid(input_file_path_);
 
   std::ifstream csv_file(input_file_path_);
   std::string first_line, second_line;
@@ -275,4 +275,4 @@ int ApsiCsvConverter::ExtractResult(
   return total_row_cnt;
 }
 
-}  // namespace psi::apsi_wrapper
+}  // namespace psi

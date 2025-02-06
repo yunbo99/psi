@@ -1,12 +1,13 @@
 #include <variant>
 
-#include "psi/algorithm/dkpir/entry.h"
 #include "apsi/log.h"
+
+#include "psi/algorithm/dkpir/entry.h"
 
 int main() {
   ::apsi::Log::SetConsoleDisabled(false);
   ::apsi::Log::SetLogLevel("all");
-  
+
   // This is hardcode, just for test
   std::string root_dir = "/home/admin/dev/secretflow/psi/";
   std::string params_file =
@@ -30,8 +31,7 @@ int main() {
       psi::ResourceManager::GetInstance().AddLinkResource(party, link_desc);
   lctx = link_resource->GetLinkContext();
 
-  psi::apsi_wrapper::ApsiCsvConverter receiver_query_converter(query_file,
-                                                               "id");
+  psi::ApsiCsvConverter receiver_query_converter(query_file, "id");
   receiver_query_converter.ExtractQuery(tmp_query_file);
 
   psi::dkpir::DkPirReceiverOptions options;

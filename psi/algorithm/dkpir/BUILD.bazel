@@ -38,7 +38,7 @@ psi_cc_library(
     ":common",
     "//psi/utils:resource_manager",
     "//psi/wrapper/apsi/utils:sender_db",
-    "//psi/wrapper/apsi/utils:csv_converter",
+    "//psi/utils:csv_converter",
   ]
 )
 

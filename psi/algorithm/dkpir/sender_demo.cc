@@ -31,7 +31,7 @@ int main() {
   //     psi::ResourceManager::GetInstance().AddLinkResource(party, link_desc);
   // lctx = link_resource->GetLinkContext();
 
-  // psi::apsi_wrapper::ApsiCsvConverter sender_db_converter(
+  // psi::ApsiCsvConverter sender_db_converter(
   //     sender_data_file, "id", {"label1", "label2", "label3"});
 
   // sender_db_converter.MergeColumnAndRow(sender_key_value_file,
