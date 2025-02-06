@@ -16,10 +16,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 
 def psi_deps():
-    _com_github_facebook_zstd()
-    _com_github_microsoft_seal()
     _com_github_microsoft_apsi()
-    _com_github_microsoft_gsl()
     _com_github_microsoft_kuku()
     _com_google_flatbuffers()
 
@@ -28,36 +25,7 @@ def psi_deps():
 
     _com_github_zeromq_cppzmq()
     _com_github_zeromq_libzmq()
-    _com_github_log4cplus_log4cplus()
     _com_github_open_source_parsers_jsoncpp()
-
-def _com_github_facebook_zstd():
-    maybe(
-        http_archive,
-        name = "zstd",
-        build_file = "//bazel:zstd.BUILD",
-        strip_prefix = "zstd-1.5.5",
-        sha256 = "98e9c3d949d1b924e28e01eccb7deed865eefebf25c2f21c702e5cd5b63b85e1",
-        type = ".tar.gz",
-        urls = [
-            "https://github.com/facebook/zstd/archive/refs/tags/v1.5.5.tar.gz",
-        ],
-    )
-
-def _com_github_microsoft_seal():
-    maybe(
-        http_archive,
-        name = "seal",
-        sha256 = "af9bf0f0daccda2a8b7f344f13a5692e0ee6a45fea88478b2b90c35648bf2672",
-        strip_prefix = "SEAL-4.1.1",
-        type = "tar.gz",
-        patch_args = ["-p1"],
-        patches = ["@psi//bazel/patches:seal.patch"],
-        urls = [
-            "https://github.com/microsoft/SEAL/archive/refs/tags/v4.1.1.tar.gz",
-        ],
-        build_file = "@psi//bazel:seal.BUILD",
-    )
 
 def _com_github_microsoft_apsi():
     maybe(
@@ -68,28 +36,15 @@ def _com_github_microsoft_apsi():
         urls = [
             "https://github.com/microsoft/APSI/archive/refs/tags/v0.11.0.tar.gz",
         ],
-        build_file = "@psi//bazel:microsoft_apsi.BUILD",
+        build_file = "//bazel:microsoft_apsi.BUILD",
         patch_args = ["-p1"],
         patches = [
-            "@psi//bazel/patches:apsi.patch",
-            "@psi//bazel/patches:apsi-fourq.patch",
+            "//bazel/patches:apsi.patch",
+            "//bazel/patches:apsi-fourq.patch",
         ],
         patch_cmds = [
             "rm -rf common/apsi/fourq",
         ],
-    )
-
-def _com_github_microsoft_gsl():
-    maybe(
-        http_archive,
-        name = "com_github_microsoft_gsl",
-        sha256 = "f0e32cb10654fea91ad56bde89170d78cfbf4363ee0b01d8f097de2ba49f6ce9",
-        strip_prefix = "GSL-4.0.0",
-        type = "tar.gz",
-        urls = [
-            "https://github.com/microsoft/GSL/archive/refs/tags/v4.0.0.tar.gz",
-        ],
-        build_file = "@psi//bazel:microsoft_gsl.BUILD",
     )
 
 def _com_github_microsoft_kuku():
@@ -102,7 +57,7 @@ def _com_github_microsoft_kuku():
         urls = [
             "https://github.com/microsoft/Kuku/archive/refs/tags/v2.1.0.tar.gz",
         ],
-        build_file = "@psi//bazel:microsoft_kuku.BUILD",
+        build_file = "//bazel:microsoft_kuku.BUILD",
     )
 
 def _com_google_flatbuffers():
@@ -120,7 +75,7 @@ def _com_google_flatbuffers():
             "rm grpc/src/compiler/BUILD.bazel",
             "rm src/BUILD.bazel",
         ],
-        build_file = "@psi//bazel:flatbuffers.BUILD",
+        build_file = "//bazel:flatbuffers.BUILD",
     )
 
 def _com_github_google_perfetto():
@@ -133,8 +88,8 @@ def _com_github_google_perfetto():
         sha256 = "4c8fe8a609fcc77ca653ec85f387ab6c3a048fcd8df9275a1aa8087984b89db8",
         strip_prefix = "perfetto-41.0",
         patch_args = ["-p1"],
-        patches = ["@psi//bazel/patches:perfetto.patch"],
-        build_file = "@psi//bazel:perfetto.BUILD",
+        patches = ["//bazel/patches:perfetto.patch"],
+        build_file = "//bazel:perfetto.BUILD",
     )
 
 def _com_github_floodyberry_curve25519_donna():
@@ -144,7 +99,7 @@ def _com_github_floodyberry_curve25519_donna():
         strip_prefix = "curve25519-donna-2fe66b65ea1acb788024f40a3373b8b3e6f4bbb2",
         sha256 = "ba57d538c241ad30ff85f49102ab2c8dd996148456ed238a8c319f263b7b149a",
         type = "tar.gz",
-        build_file = "@psi//bazel:curve25519-donna.BUILD",
+        build_file = "//bazel:curve25519-donna.BUILD",
         urls = [
             "https://github.com/floodyberry/curve25519-donna/archive/2fe66b65ea1acb788024f40a3373b8b3e6f4bbb2.tar.gz",
         ],
@@ -154,7 +109,7 @@ def _com_github_zeromq_cppzmq():
     maybe(
         http_archive,
         name = "com_github_zeromq_cppzmq",
-        build_file = "@psi//bazel:cppzmq.BUILD",
+        build_file = "//bazel:cppzmq.BUILD",
         strip_prefix = "cppzmq-4.10.0",
         sha256 = "c81c81bba8a7644c84932225f018b5088743a22999c6d82a2b5f5cd1e6942b74",
         type = ".tar.gz",
@@ -167,7 +122,7 @@ def _com_github_zeromq_libzmq():
     maybe(
         http_archive,
         name = "com_github_zeromq_libzmq",
-        build_file = "@psi//bazel:libzmq.BUILD",
+        build_file = "//bazel:libzmq.BUILD",
         strip_prefix = "libzmq-4.3.5",
         sha256 = "6c972d1e6a91a0ecd79c3236f04cf0126f2f4dfbbad407d72b4606a7ba93f9c6",
         type = ".tar.gz",
@@ -176,24 +131,11 @@ def _com_github_zeromq_libzmq():
         ],
     )
 
-def _com_github_log4cplus_log4cplus():
-    maybe(
-        http_archive,
-        name = "com_github_log4cplus_log4cplus",
-        build_file = "@psi//bazel:log4cplus.BUILD",
-        strip_prefix = "log4cplus-2.1.1",
-        sha256 = "42dc435928917fd2f847046c4a0c6086b2af23664d198c7fc1b982c0bfe600c1",
-        type = ".tar.gz",
-        urls = [
-            "https://github.com/log4cplus/log4cplus/releases/download/REL_2_1_1/log4cplus-2.1.1.tar.gz",
-        ],
-    )
-
 def _com_github_open_source_parsers_jsoncpp():
     maybe(
         http_archive,
         name = "com_github_open_source_parsers_jsoncpp",
-        build_file = "@psi//bazel:jsoncpp.BUILD",
+        build_file = "//bazel:jsoncpp.BUILD",
         strip_prefix = "jsoncpp-1.9.6",
         sha256 = "f93b6dd7ce796b13d02c108bc9f79812245a82e577581c4c9aabe57075c90ea2",
         type = ".tar.gz",

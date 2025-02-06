@@ -12,26 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("@rules_foreign_cc//foreign_cc:defs.bzl", "cmake")
+load("@rules_proto//proto:defs.bzl", "proto_library")
 
 package(default_visibility = ["//visibility:public"])
 
-filegroup(
-    name = "all",
-    srcs = glob(["**"]),
+proto_library(
+    name = "pir_proto",
+    srcs = ["pir.proto"],
+    deps = [
+        "//psi/apps/pir/apis:common_proto",
+    ],
 )
 
-cmake(
-    name = "log4cplus",
-    cache_entries = {
-        "LOG4CPLUS_BUILD_TESTING": "OFF",
-        "LOG4CPLUS_BUILD_LOGGINGSERVER": "OFF",
-        "WITH_UNIT_TESTS": "OFF",
-        "BUILD_SHARED_LIBS": "False",
-        "LOG4CPLUS_ENABLE_DECORATED_LIBRARY_NAME": "OFF",
-        "CMAKE_INSTALL_LIBDIR": "lib",
-    },
-    generate_args = ["-GNinja"],
-    lib_source = "@com_github_log4cplus_log4cplus//:all",
-    out_static_libs = ["liblog4cplus.a"],
+cc_proto_library(
+    name = "pir_cc_proto",
+    deps = [
+        ":pir_proto",
+    ],
 )
